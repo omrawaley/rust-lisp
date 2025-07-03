@@ -15,8 +15,6 @@ pub enum Node {
     Symbol(String),
     Float(f64),
     List(Vec<Node>),
-    // Function(fn(&Vec<Node>) -> Node),
-    // Lambda(Vec<String>, Vec<Node>),
     Function(Vec<String>, Box<Node>),
 }
 
@@ -170,7 +168,7 @@ impl Interpreter {
                     if env.borrow().data.contains_key(string) {
                         let node = env.borrow().data.get(string).unwrap().clone();
                         if let Node::Function(_, _) = node {
-                            self.evaluate_function(&node, &evaluated_nodes[1], env.clone()) // index out of bounds: the len is 1 but the index is 1
+                            self.evaluate_function(&node, &evaluated_nodes[1], env.clone())
                         } else {
                             Node::List(evaluated_nodes.clone())
                         }
